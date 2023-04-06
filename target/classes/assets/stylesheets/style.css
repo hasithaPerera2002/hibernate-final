@@ -1,0 +1,46 @@
+#loginScreenContext{
+    -fx-background-image: url(../loginscreen.png);
+    -fx-background-size: 100% 100%;
+    -fx-border-radius: 50%;
+}
+#btnLogin{
+
+    -fx-background-color: rgb(23, 130, 177);
+}
+#loginFormContext2{
+    -fx-border-color:   black;
+    -fx-border-radius: 5%;
+}
+#mainContext{
+    -fx-background-color: linear-gradient(to top left,white, rgba(74, 193, 241, 0.65));
+}
+#mainDashBoardContext{
+
+}
+#dashBoardContext{
+
+
+}
+.btnDashBoard{
+
+    -fx-background-radius: 2%;
+    -fx-background-color: #CFF5E7;
+}
+.btnDashBoard:hover{
+
+    -fx-background-color: linear-gradient(to top left, white, #5fa8ff);
+}
+#dashboardContext2{
+
+}
+.dashBoardLabel{
+    -fx-background-color: #59C1BD;
+    -fx-background-radius: 0 50 50 50;
+}
+#lblAddnew{
+    -fx-text-fill: #0ac5e5
+;
+}
+#bgContext{
+    -fx-background-color: linear-gradient(to top right,white, rgba(207, 245, 231, 0.77));
+}

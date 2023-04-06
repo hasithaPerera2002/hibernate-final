@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXCheckBox?>
+<?import com.jfoenix.controls.JFXComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="dashboardContext2" prefHeight="787.0" prefWidth="1115.0" style="-fx-background-color: whiyte;" stylesheets="@../assets/stylesheets/style.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.PaymentsKeyMoneyFormController">
+   <children>
+      <Label layoutX="43.0" layoutY="14.0" prefHeight="57.0" prefWidth="315.0" text="PAYMENTS">
+         <font>
+            <Font name="System Bold" size="24.0" />
+         </font>
+      </Label>
+      <Separator layoutX="43.0" layoutY="70.0" prefHeight="1.0" prefWidth="285.0" />
+      <JFXComboBox fx:id="cmbStudentId" labelFloat="true" layoutX="43.0" layoutY="122.0" prefHeight="31.0" prefWidth="248.0" promptText="STUDENT ID" />
+      <Label layoutX="358.0" layoutY="127.0" prefHeight="31.0" prefWidth="117.0" text="ROOM TYPE ID :">
+         <font>
+            <Font name="System Bold" size="15.0" />
+         </font>
+      </Label>
+      <Label layoutX="585.0" layoutY="127.0" prefHeight="31.0" prefWidth="85.0" text="ROOM ID :">
+         <font>
+            <Font name="System Bold" size="15.0" />
+         </font>
+      </Label>
+      <Label layoutX="783.0" layoutY="127.0" prefHeight="31.0" prefWidth="169.0" text="KEYMONEY AMOUNT :">
+         <font>
+            <Font name="System Bold" size="15.0" />
+         </font>
+      </Label>
+      <Label fx:id="lblRoomTytpeId" layoutX="488.0" layoutY="127.0" prefHeight="31.0" prefWidth="76.0">
+         <font>
+            <Font name="System Bold" size="15.0" />
+         </font>
+      </Label>
+      <Label fx:id="lblRoomId" layoutX="676.0" layoutY="127.0" prefHeight="31.0" prefWidth="76.0">
+         <font>
+            <Font name="System Bold" size="15.0" />
+         </font>
+      </Label>
+      <JFXButton fx:id="btnDone" buttonType="RAISED" layoutX="807.0" layoutY="314.0" onAction="#btnDoneOnAction" prefHeight="98.0" prefWidth="221.0" style="-fx-background-color: #A0E4CB;" text="DONE">
+         <font>
+            <Font name="System Bold" size="26.0" />
+         </font>
+      </JFXButton>
+      <Label fx:id="lblKeyMoneyAmount" layoutX="952.0" layoutY="127.0" prefHeight="31.0" prefWidth="76.0">
+         <font>
+            <Font name="System Bold" size="15.0" />
+         </font>
+      </Label>
+      <JFXCheckBox fx:id="paidBox" contentDisplay="RIGHT" graphicTextGap="10.0" layoutX="807.0" layoutY="203.0" prefHeight="49.0" prefWidth="221.0" text="PAID" />
+   </children>
+</AnchorPane>
