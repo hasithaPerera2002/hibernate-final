@@ -2,6 +2,7 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import util.FactoryConfiguration;
 
 import java.io.IOException;
 
@@ -13,11 +14,11 @@ public class AppInitializer extends Application {
 
     @Override
     public void start(Stage primaryStage) throws IOException {
-        System.out.println("wwwwwwww");
-
-        Scene scene = new Scene(FXMLLoader.load(getClass().getResource("/view/LoginForm.fxml")));
+        FactoryConfiguration.getInstance();
+        Scene scene = new Scene(FXMLLoader.load(getClass().getResource("/view/DashBoardForm.fxml")));
         primaryStage.setScene(scene);
         primaryStage.centerOnScreen();
         primaryStage.show();
+
     }
 }

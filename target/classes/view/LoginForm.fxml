@@ -24,7 +24,7 @@
                   <Font name="Comic Sans MS Bold" size="15.0" />
                </font>
             </Label>
-            <JFXTextField alignment="CENTER" labelFloat="true" layoutX="51.0" layoutY="301.0" prefHeight="31.0" prefWidth="309.0" promptText="USER NAME">
+            <JFXTextField fx:id="txtUserName" alignment="CENTER" labelFloat="true" layoutX="51.0" layoutY="301.0" prefHeight="31.0" prefWidth="309.0" promptText="USER ID">
                <font>
                   <Font name="System Bold" size="16.0" />
                </font>

@@ -8,8 +8,9 @@ public class UserDTO {
     private String contactNo;
     private String password;
     private String address;
+    private String nic;
 
-    public UserDTO(String id, String fName, String sName, String email, String contactNo, String password, String address) {
+    public UserDTO(String id, String fName, String sName, String email, String contactNo, String password, String address, String nic) {
         this.setId(id);
         this.setfName(fName);
         this.setsName(sName);
@@ -17,6 +18,7 @@ public class UserDTO {
         this.setContactNo(contactNo);
         this.setPassword(password);
         this.setAddress(address);
+        this.setNic(nic);
     }
 
     public String getId() {
@@ -73,5 +75,13 @@ public class UserDTO {
 
     public void setAddress(String address) {
         this.address = address;
+    }
+
+    public String getNic() {
+        return nic;
+    }
+
+    public void setNic(String nic) {
+        this.nic = nic;
     }
 }

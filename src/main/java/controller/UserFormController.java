@@ -9,6 +9,7 @@ import javafx.scene.layout.AnchorPane;
 
 public class UserFormController {
     public JFXTextField txtEmail;
+    public JFXTextField txtAddress1;
     @FXML
     private AnchorPane dashboardContext2;
 

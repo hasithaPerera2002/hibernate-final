@@ -8,8 +8,12 @@ import javafx.fxml.FXML;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.layout.AnchorPane;
+import service.RoomsService;
+import service.ServiceFactory;
 
 public class RoomFormController {
+    public JFXComboBox cmbRoomTypeId;
+    RoomsService roomsService= ServiceFactory.getInstance().getService(S);
     @FXML
     private AnchorPane dashboardContext2;
 
@@ -54,11 +58,14 @@ public class RoomFormController {
 
     @FXML
     void btnNewOnAction(ActionEvent event) {
-
+        roomsService.getNewID();
     }
 
     @FXML
     void btnSaveOnAction(ActionEvent event) {
 
+    }
+
+    public void cmbRIDOnAction(ActionEvent actionEvent) {
     }
 }
