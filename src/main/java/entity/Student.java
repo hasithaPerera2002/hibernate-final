@@ -5,6 +5,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.sql.Date;
+
 
 @Entity
 @Data
@@ -12,21 +14,25 @@ import javax.persistence.*;
 @NoArgsConstructor
 public class Student {
     @Id
-    @Column(name = "id",length = 45,nullable = false)
+    @Column(name = "s_id", length = 45, nullable = false)
     private String id;
-    @Column(name = "fname",length = 45,nullable = false)
+    @Column(name = "fname", length = 45, nullable = false)
     private String fname;
-    @Column(name = "sname",length = 45,nullable = false)
+    @Column(name = "sname", length = 45, nullable = false)
     private String sname;
-    @Column(name = "contact",length = 45,nullable = false)
+    @Column(name = "contact", length = 45, nullable = false)
     private String contact;
-    @Column(name = "address",length = 45,nullable = false)
+    @Column(name = "address", length = 45, nullable = false)
     private String address;
-    @Column(name = "email",length = 45,nullable = false)
-    private String email;
-    @Column(name = "nic",length = 20,nullable = false)
-    private String nic;
 
-    @OneToOne(targetEntity = Rooms.class)
+    @Column(name = "nic", length = 45,nullable = false)
+    private String nic;
+    @Column(name = "fromDate",  nullable = false)
+    private Date fromDate;
+    @Column(name = "toDate", nullable = false)
+    private Date toDate;
+
+    @OneToOne(mappedBy = "student",targetEntity = Rooms.class)
+    @PrimaryKeyJoinColumn
     private Rooms rooms;
 }

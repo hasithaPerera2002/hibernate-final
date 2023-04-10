@@ -3,6 +3,8 @@ package entity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.Value;
+import org.hibernate.annotations.Cascade;
 
 import javax.persistence.*;
 
@@ -18,6 +20,7 @@ public class Rooms {
     @JoinColumn(name = "roomType")
     private RoomTypes roomType;
 
-    @OneToOne(cascade = CascadeType.ALL,targetEntity = Student.class)
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "student")
     private Student student;
 }

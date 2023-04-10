@@ -15,7 +15,7 @@ import javax.persistence.NoResultException;
 
 public class UserServiceImpl implements UserService {
 
-    UserRepo userRepo= RepoFactory.getInstance().getRepo(RepoTypes.USER_REPO);
+   private UserRepo userRepo= RepoFactory.getInstance().getRepo(RepoTypes.USER_REPO);
 
     @Override
     public UserDTO getUser(String text) {

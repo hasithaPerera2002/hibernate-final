@@ -1,0 +1,4 @@
+insert into roomtypes values ("RM-1324",3100.00,"NON_AC");
+insert into roomtypes values ("RM-5467",6500.00,"NON_AC/FOOD");
+insert into roomtypes values ("RM-7896",8900.00,"AC");
+insert into roomtypes values ("RM-0093",16000.00,"AC/FOOD");

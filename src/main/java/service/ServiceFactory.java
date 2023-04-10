@@ -1,15 +1,18 @@
 package service;
 
 import service.impl.RoomsServiceImpl;
+import service.impl.StudentServiceImpl;
 import service.impl.UserServiceImpl;
 
 public class ServiceFactory {
     private static ServiceFactory serviceFactory;
-    UserService userService;
-    RoomsService roomsService;
+   private UserService userService;
+   private RoomsService roomsService;
+   private StudentService studentsService;
     private ServiceFactory() {
         userService=new UserServiceImpl();
         roomsService=new RoomsServiceImpl();
+        studentsService=new StudentServiceImpl();
     }
     public static ServiceFactory getInstance() {
         if (serviceFactory == null) {
@@ -23,6 +26,9 @@ public class ServiceFactory {
                 return (T) userService;
             case ROOM_SERVICE:
                 return (T) roomsService;
+            case STUDENT_SERVICE:
+                return (T) studentsService;
+
 
         }
         return null;

@@ -3,6 +3,7 @@
 <?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXComboBox?>
 <?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.TableColumn?>
@@ -32,7 +33,7 @@
             <Font name="System Bold" size="15.0" />
          </font>
       </JFXTextField>
-      <JFXComboBox fx:id="cmbRoomType" labelFloat="true" layoutX="584.0" layoutY="176.0" prefHeight="31.0" prefWidth="159.0" promptText="ROOM TYPE ID" />
+      <JFXComboBox fx:id="cmbRoom" labelFloat="true" layoutX="861.0" layoutY="176.0" prefHeight="31.0" prefWidth="227.0" promptText="ROOM " />
       <JFXTextField fx:id="txtNIC" labelFloat="true" layoutX="861.0" layoutY="97.0" prefHeight="31.0" prefWidth="227.0" promptText="NIC:">
          <font>
             <Font name="System Bold" size="15.0" />
@@ -71,11 +72,12 @@
          </font>
       </JFXTextField>
       <Separator layoutX="43.0" layoutY="70.0" prefHeight="1.0" prefWidth="285.0" />
-      <JFXComboBox fx:id="cmbRoomID" labelFloat="true" layoutX="861.0" layoutY="176.0" prefHeight="31.0" prefWidth="159.0" promptText="ROOM ID" />
       <JFXButton fx:id="btnKeyMoney" buttonType="RAISED" layoutX="932.0" layoutY="21.0" onAction="#btnKeyMoneyOnAction" prefHeight="44.0" prefWidth="140.0" ripplerFill="#42dd5e" style="-fx-background-color: #59C1BD;" text="PAY KEYMONEY">
          <font>
             <Font name="System Bold" size="15.0" />
          </font>
       </JFXButton>
+      <DatePicker fx:id="datePickerFrom" layoutX="474.0" layoutY="176.0" prefHeight="31.0" prefWidth="150.0" promptText="FROM" />
+      <DatePicker fx:id="datePickerTo" layoutX="672.0" layoutY="176.0" prefHeight="31.0" prefWidth="150.0" promptText="TO" />
    </children>
 </AnchorPane>

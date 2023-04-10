@@ -17,12 +17,12 @@
             <Font name="System Bold" size="24.0" />
          </font>
       </Label>
-      <JFXTextField fx:id="txtFname" labelFloat="true" layoutX="884.0" layoutY="97.0" prefHeight="31.0" prefWidth="185.0" promptText="KEY MONEY:">
+      <JFXTextField fx:id="txtKeymoney" labelFloat="true" layoutX="884.0" layoutY="97.0" prefHeight="31.0" prefWidth="185.0" promptText="KEY MONEY:">
          <font>
             <Font name="System Bold" size="15.0" />
          </font>
       </JFXTextField>
-      <JFXComboBox fx:id="cmbRoomTypeId" labelFloat="true" layoutX="244.0" layoutY="97.0" onAction="#cmbRIDOnAction" prefHeight="31.0" prefWidth="207.0" promptText="ROOM TYPE ID" />
+      <JFXComboBox fx:id="cmbRoomTypeId" labelFloat="true" layoutX="392.0" layoutY="97.0" onAction="#cmbRIDOnAction" prefHeight="31.0" prefWidth="332.0" promptText="ROOM TYPE ID" />
       <JFXTextField fx:id="txtId" labelFloat="true" layoutX="51.0" layoutY="97.0" prefHeight="31.0" prefWidth="150.0" promptText="ID:">
          <font>
             <Font name="System Bold" size="15.0" />
@@ -53,6 +53,5 @@
             <Font name="System Bold" size="15.0" />
          </font>
       </JFXButton>
-      <JFXComboBox fx:id="cmbRoomType" labelFloat="true" layoutX="513.0" layoutY="97.0" prefHeight="31.0" prefWidth="322.0" promptText="ROOM TYPE" />
    </children>
 </AnchorPane>
