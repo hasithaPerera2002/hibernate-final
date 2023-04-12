@@ -3,6 +3,8 @@ package entity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.ColumnDefault;
+import util.Paid;
 
 import javax.persistence.*;
 import java.sql.Date;
@@ -32,7 +34,13 @@ public class Student {
     @Column(name = "toDate", nullable = false)
     private Date toDate;
 
+    @Enumerated(EnumType.STRING)
+    @Column(name = "paid")
+    @ColumnDefault("NOT_PAID")
+    private Paid paid;
     @OneToOne(mappedBy = "student",targetEntity = Rooms.class)
     @PrimaryKeyJoinColumn
     private Rooms rooms;
+
+
 }

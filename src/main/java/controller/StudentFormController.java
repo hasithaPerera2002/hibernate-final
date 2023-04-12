@@ -23,8 +23,7 @@ import service.RoomsService;
 import service.ServiceFactory;
 import service.ServiceTypes;
 import service.StudentService;
-import util.Regex;
-import util.TextFields;
+import util.*;
 
 import java.io.IOException;
 import java.time.LocalDate;
@@ -107,7 +106,7 @@ public class StudentFormController {
                     if (cmbRoom.getSelectionModel().getSelectedItem() != null) {
                         StudentDTO studentDTO = new StudentDTO(txtId.getText(), txtFname.getText(),
                                 txtSname.getText(), txtAddress.getText(), txtContactNo.getText(), txtNIC.getText(),
-                                fromValue, toValue,
+                                fromValue, toValue, Paid.NOT_PAID,
                                 cmbRoom.getSelectionModel().getSelectedItem());
                         RoomsDTO selectedItem = cmbRoom.getSelectionModel().getSelectedItem();
 
@@ -172,14 +171,6 @@ public class StudentFormController {
     }
 
     public void btnKeyMoneyOnAction(ActionEvent actionEvent) throws IOException {
-        Stage window = (Stage) dashboardContext2.getScene().getWindow();
-        Stage stage = new Stage();
-        stage.setScene(new Scene(FXMLLoader.load(getClass().getResource("/view/PaymentKeyMoneyForm.fxml"))));
-        stage.initOwner(window);
-        stage.initModality(Modality.APPLICATION_MODAL);
-        stage.showAndWait();
-        stage.centerOnScreen();
-
-
+     Navigation.getInstance().navigation(Routs.PAYMENT_FORM,dashboardContext2);
     }
 }

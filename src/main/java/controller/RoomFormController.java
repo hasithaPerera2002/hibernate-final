@@ -2,29 +2,34 @@ package controller;
 
 import DTO.RoomTypesDTO;
 import DTO.RoomsDTO;
+import DTO.tableDTO.RoomTblDTO;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextField;
-import entity.RoomTypes;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.util.StringConverter;
 import service.RoomsService;
 import service.ServiceFactory;
 import service.ServiceTypes;
 import util.Regex;
-import util.RoomType;
 import util.TextFields;
+
+import java.util.Optional;
 
 public class RoomFormController {
 
     public JFXTextField txtKeymoney;
-    private RoomsService roomsService= ServiceFactory.getInstance().getService(ServiceTypes.ROOM_SERVICE);
+    private RoomsService roomsService = ServiceFactory.getInstance().getService(ServiceTypes.ROOM_SERVICE);
+    private ObservableList<RoomTblDTO> tblDTOS = FXCollections.observableArrayList();
+
     @FXML
     private AnchorPane dashboardContext2;
 
@@ -39,26 +44,25 @@ public class RoomFormController {
     private JFXButton btnSave;
 
     @FXML
-    private TableView<?> tblStudent;
+    private TableView<RoomTblDTO> tblStudent;
 
     @FXML
-    private TableColumn<?, ?> colId;
+    private TableColumn<RoomTblDTO, String> colId;
 
     @FXML
-    private TableColumn<?, ?> colRoomTypeId;
+    private TableColumn<RoomTblDTO, String> colRoomTypeId;
 
     @FXML
-    private TableColumn<?, ?> colRoomType;
+    private TableColumn<RoomTblDTO, String> colRoomType;
 
     @FXML
-    private TableColumn<?, ?> colKeyMoney;
+    private TableColumn<RoomTblDTO, Double> colKeyMoney;
 
     @FXML
-    private TableColumn<?, ?> colOption;
+    private TableColumn<RoomTblDTO, Button> colOption;
 
     @FXML
     private JFXTextField txtSearchId;
-
 
 
     @FXML
@@ -81,17 +85,23 @@ public class RoomFormController {
     }
 
     public void initialize() {
+        colId.setCellValueFactory(new PropertyValueFactory<>("id"));
+        colKeyMoney.setCellValueFactory(new PropertyValueFactory<>("keyMoney"));
+        colRoomType.setCellValueFactory(new PropertyValueFactory<>("roomType"));
+        colRoomTypeId.setCellValueFactory(new PropertyValueFactory<>("roomTypeID"));
+        colOption.setCellValueFactory(new PropertyValueFactory<>("btn"));
+
         txtId.setEditable(false);
         btnSave.setDisable(true);
         clear();
-        ObservableList<RoomsDTO> allRooms = roomsService.getAllRooms();
+
         ObservableList<RoomTypesDTO> roomTypes = roomsService.getRoomTypes();
         cmbRoomTypeId.setDisable(true);
         cmbRoomTypeId.setItems(roomTypes);
         cmbRoomTypeId.setConverter(new StringConverter<RoomTypesDTO>() {
             @Override
             public String toString(RoomTypesDTO roomTypesDTO) {
-                return (roomTypesDTO.getRoomTypeId()+" | "+roomTypesDTO.getRoomType());
+                return (roomTypesDTO.getRoomTypeId() + " | " + roomTypesDTO.getRoomType());
             }
 
             @Override
@@ -99,31 +109,67 @@ public class RoomFormController {
                 return null;
             }
         });
+        setTable();
     }
+
+    private void setTable() {
+        ObservableList<RoomsDTO> allRooms;
+        allRooms = roomsService.getAllRooms();
+        for (RoomsDTO a : allRooms
+        ) {
+            Button button = new Button();
+            button.setStyle("-fx-background-color: rgb(230, 57, 70);");
+            button.setText("delete");
+            button.setOnAction(actionEvent -> {
+                Optional<ButtonType> type = new Alert(Alert.AlertType.INFORMATION, "DO YOU WANT TO DELETE", ButtonType.YES, ButtonType.NO).showAndWait();
+                if (type.get() == ButtonType.YES) {
+                    if (0 < roomsService.delete(a))
+                        new Alert(Alert.AlertType.CONFIRMATION, "Room deleted successfully").show();
+                    setTable();
+                    clear();
+                } else {
+                    new Alert(Alert.AlertType.ERROR, "Error while deleting").show();
+                }
+            });
+            tblDTOS.add(new RoomTblDTO(a.getId(), a.getRoomTypeID(), a.getRoomType().name(),a.getKeymoney(),button));
+        }
+        tblStudent.setItems(tblDTOS);
+    }
+
     @FXML
     void btnSaveOnAction(ActionEvent event) {
-        if (cmbRoomTypeId.getSelectionModel().getSelectedItem()!=null) {
+        if (cmbRoomTypeId.getSelectionModel().getSelectedItem() != null) {
 
-                if(Regex.setTextColor(TextFields.DOUBLE,txtKeymoney)) {
-                    RoomTypesDTO selectedItem = cmbRoomTypeId.getSelectionModel().getSelectedItem();
-                    if (0 < roomsService.add(new RoomsDTO(txtId.getText(), selectedItem.getRoomTypeId(),
-                            selectedItem.getRoomType(), selectedItem.getKeyMoney()))) {
-                        new Alert(Alert.AlertType.CONFIRMATION, "ROOM ADDED SUCCESSFULLY").show();
-                        clear();
+            if (Regex.setTextColor(TextFields.DOUBLE, txtKeymoney)) {
+                RoomTypesDTO selectedItem = cmbRoomTypeId.getSelectionModel().getSelectedItem();
+                if (0 < roomsService.add(new RoomsDTO(txtId.getText(), selectedItem.getRoomTypeId(),
+                        selectedItem.getRoomType(), selectedItem.getKeyMoney()))) {
+                    new Alert(Alert.AlertType.CONFIRMATION, "ROOM ADDED SUCCESSFULLY").show();
+                    clear();
+                    btnSave.setDisable(true);
 
-                    } else {
-                        new Alert(Alert.AlertType.ERROR, "ROOM NOT ADDED").show();
-                    }
+                } else {
+                    new Alert(Alert.AlertType.ERROR, "ROOM NOT ADDED").show();
                 }
-        }else {
+            }
+        } else {
             new Alert(Alert.AlertType.ERROR, "SELECT ROOM TYPE").show();
         }
     }
 
-    public void cmbRIDOnAction(ActionEvent actionEvent) throws NullPointerException{
+    public void cmbRIDOnAction(ActionEvent actionEvent) throws NullPointerException {
 
         double keyMoney = cmbRoomTypeId.getSelectionModel().getSelectedItem().getKeyMoney();
         txtKeymoney.setText(String.valueOf(keyMoney));
         btnSave.setDisable(false);
+    }
+
+    public void tblRoomOnClick(MouseEvent mouseEvent) {
+        tblStudent.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+
+            }
+        });
     }
 }

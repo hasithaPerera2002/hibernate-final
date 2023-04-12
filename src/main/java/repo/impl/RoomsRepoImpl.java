@@ -17,6 +17,7 @@ public class RoomsRepoImpl implements RoomsRepo {
 
     @Override
     public void update(Rooms obj, Session session) {
+
         session.update(obj);
     }
 
@@ -43,6 +44,12 @@ public class RoomsRepoImpl implements RoomsRepo {
     @Override
     public List<Rooms> getAllWithoutStudents(Session session) {
         return session.createCriteria(Rooms.class).list();
+    }
+
+    @Override
+    public int getTotalCount(Session session) {
+        Long singleResult = (Long) session.createQuery(" select count (*) from Rooms ").getSingleResult();
+       return singleResult.intValue();
     }
 }
 

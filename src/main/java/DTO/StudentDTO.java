@@ -1,5 +1,7 @@
 package DTO;
 
+import util.Paid;
+
 import java.time.LocalDate;
 
 public class StudentDTO {
@@ -11,9 +13,10 @@ public class StudentDTO {
     private String nic;
     private LocalDate fromDate;
     private LocalDate toDate;
+    private Paid paid;
     private RoomsDTO roomsDTO;
 
-    public StudentDTO(String id, String fname, String sname, String address, String contact, String nic, LocalDate fromDate, LocalDate toDate, RoomsDTO roomsDTO) {
+    public StudentDTO(String id, String fname, String sname, String address, String contact, String nic, LocalDate fromDate, LocalDate toDate,Paid paid, RoomsDTO roomsDTO) {
         this.setId(id);
         this.setFname(fname);
         this.setSname(sname);
@@ -23,6 +26,8 @@ public class StudentDTO {
         this.setFromDate(fromDate);
         this.setToDate(toDate);
         this.setRoomsDTO(roomsDTO);
+        this.setPaid(paid);
+
     }
 
     public String getId() {
@@ -95,5 +100,13 @@ public class StudentDTO {
 
     public void setRoomsDTO(RoomsDTO roomsDTO) {
         this.roomsDTO = roomsDTO;
+    }
+
+    public Paid getPaid() {
+        return paid;
+    }
+
+    public void setPaid(Paid paid) {
+        this.paid = paid;
     }
 }

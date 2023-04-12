@@ -103,6 +103,7 @@ public class UserServiceImpl implements UserService {
         Session session= FactoryConfiguration.getInstance().getSession();
         Transaction transaction= session.beginTransaction();
         try{
+            System.out.println(obj.getId()+" updated");
             userRepo.update(Converter.getConverter().toUser(obj), session);
             transaction.commit();
             return 1;

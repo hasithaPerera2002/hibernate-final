@@ -37,12 +37,13 @@ public class LoginFormController {
 
     @FXML
     void btnLoginOnAction(ActionEvent event) throws IOException {
-        if (Regex.setTextColor(TextFields.ID,txtUserName)) {
-            if (Regex.setTextColor(TextFields.PASSWORD,txtPassword)) {
+        if (Regex.setTextColor(TextFields.ID,txtUserName)&&Regex.setTextColor(TextFields.PASSWORD,txtPassword)) {
+
                 UserDTO user = service.getUser(txtUserName.getText());
                 if (user!= null) {
                     if (Objects.equals(txtPassword.getText(), user.getPassword())) {
                         Navigation.getInstance().navigation(Routs.DASHBOARD_FORM, mainContext);
+                        Navigation.getInstance().setUserDTO(user);
                         mainContext.getScene().getWindow().hide();
                     }else {
                         new Alert(Alert.AlertType.ERROR,"WRONG PASSWORD").show();
@@ -52,7 +53,7 @@ public class LoginFormController {
                 }
             }
 
-        }
+
     }
 
 

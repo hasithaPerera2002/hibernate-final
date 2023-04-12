@@ -53,14 +53,11 @@ public class NewUserFormController {
 
     @FXML
     void btnSaveOnAction(ActionEvent event) {
-        if (Regex.setTextColor(TextFields.NAME, txtFname)){
-            if (Regex.setTextColor(TextFields.NAME, txtSname)){
-                if (Regex.setTextColor(TextFields.PHONE, txtContactNo)) {
-                    if (Regex.setTextColor(TextFields.EMAIL, txtEmail)) {
-                        if (Regex.setTextColor(TextFields.LANKAN_ID, txtNIC)) {
-                            if (Regex.setTextColor(TextFields.ADDRESS, txtAddress)) {
-                                if (Regex.setTextColor(TextFields.PASSWORD, txtOldPassword)) {
-                                    if (Regex.setTextColor(TextFields.PASSWORD, txtNewPassWord)) {
+        if (Regex.setTextColor(TextFields.NAME, txtFname)&& Regex.setTextColor(TextFields.NAME, txtSname)
+        && Regex.setTextColor(TextFields.PHONE, txtContactNo)&&Regex.setTextColor(TextFields.EMAIL, txtEmail)
+        &&Regex.setTextColor(TextFields.LANKAN_ID, txtNIC) && Regex.setTextColor(TextFields.ADDRESS, txtAddress)
+        && Regex.setTextColor(TextFields.PASSWORD, txtNewPassWord)&& Regex.setTextColor(TextFields.PASSWORD, txtOldPassword)){
+
                                         if (Objects.equals(txtOldPassword.getText(), txtNewPassWord.getText())) {
                                             int add = userService.add(new UserDTO(lblID.getText(), txtFname.getText(),
                                                     txtSname.getText(), txtEmail.getText(),
@@ -72,17 +69,10 @@ public class NewUserFormController {
                                                 dashboardContext2.getScene().getWindow().hide();
                                             } else {
                                                 new Alert(Alert.AlertType.ERROR, "USER NOT ADDED").show();
+                                                dashboardContext2.getScene().getWindow().hide();
                                             }
                                         }
                                     }
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-
-        }
 
     }
     public void initialize(){

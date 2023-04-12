@@ -16,7 +16,7 @@ public class Rooms {
     @Id
     @Column(name = "id", length = 45, nullable = false)
     private String id;
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne()
     @JoinColumn(name = "roomType")
     private RoomTypes roomType;
 

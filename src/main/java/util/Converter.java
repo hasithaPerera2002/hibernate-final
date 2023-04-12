@@ -39,10 +39,10 @@ public class Converter {
     }
 
     public Student toStudent(StudentDTO obj) {
-        return new Student(obj.getId(),obj.getFname(),obj.getSname(),obj.getContact(), obj.getAddress(), obj.getNic(), Date.valueOf(obj.getFromDate()),Date.valueOf(obj.getToDate()),Converter.converter.toRoom(obj.getRoomsDTO()) );
+        return new Student(obj.getId(),obj.getFname(),obj.getSname(),obj.getContact(), obj.getAddress(), obj.getNic(), Date.valueOf(obj.getFromDate()),Date.valueOf(obj.getToDate()),obj.getPaid(),Converter.converter.toRoom(obj.getRoomsDTO()) );
     }
 
     public StudentDTO toStudentDTO(Student student) {
-        return new StudentDTO(student.getId(), student.getFname(), student.getSname(), student.getAddress(), student.getContact(), student.getNic(), student.getFromDate().toLocalDate(),student.getToDate().toLocalDate(), Converter.getConverter().toRoomDTO(student.getRooms()));
+        return new StudentDTO(student.getId(), student.getFname(), student.getSname(), student.getAddress(), student.getContact(), student.getNic(), student.getFromDate().toLocalDate(),student.getToDate().toLocalDate(),student.getPaid(), Converter.getConverter().toRoomDTO(student.getRooms()));
     }
 }

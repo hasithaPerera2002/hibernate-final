@@ -17,7 +17,6 @@ import util.Converter;
 import util.FactoryConfiguration;
 
 import javax.persistence.NoResultException;
-import java.util.ArrayList;
 import java.util.List;
 
 public class RoomsServiceImpl implements RoomsService {
@@ -31,6 +30,7 @@ public class RoomsServiceImpl implements RoomsService {
             transaction.commit();
             return 1;
         }catch (Exception e){
+            transaction.rollback();
             e.printStackTrace();
             return 0;
         }finally {
@@ -47,6 +47,7 @@ public class RoomsServiceImpl implements RoomsService {
             transaction.commit();
             return 1;
         }catch (Exception e){
+            transaction.rollback();
             e.printStackTrace();
             return 0;
         }finally {
@@ -63,6 +64,7 @@ public class RoomsServiceImpl implements RoomsService {
             transaction.commit();
             return 1;
         }catch (Exception e){
+            transaction.rollback();
             e.printStackTrace();
             return 0;
         }finally {
@@ -78,6 +80,7 @@ public class RoomsServiceImpl implements RoomsService {
             int i = Integer.parseInt(split[1]);
             return String.format("R%03d",++i);
         }else {
+
             return "R001";
         }
     }
@@ -157,8 +160,22 @@ public class RoomsServiceImpl implements RoomsService {
             transaction.commit();
             return true;
         }catch (Exception e){
+            transaction.rollback();
             e.printStackTrace();
             return false;
+        }finally {
+            session.close();
+        }
+    }
+
+    @Override
+    public int getTotalCount() {
+        Session session=FactoryConfiguration.getInstance().getSession();
+        try{
+            return roomsRepo.getTotalCount(session);
+        }catch(NullPointerException | NoResultException e){
+            e.printStackTrace();
+            return 0;
         }finally {
             session.close();
         }
