@@ -51,5 +51,17 @@ public class RoomsRepoImpl implements RoomsRepo {
         Long singleResult = (Long) session.createQuery(" select count (*) from Rooms ").getSingleResult();
        return singleResult.intValue();
     }
+
+    @Override
+    public List<Rooms> getSearchList(Session session, String id) {
+        //Query qry = session.createQuery("From Rooms as rb where rb.id  like `?`");
+       // List<Rooms> resultList = (List<Rooms>) session.createSQLQuery("SELECT * from rooms as rb where rb.id like '"%"'+'"id"'+'"%"'").getResultList();
+
+        return null;
+        //qry.setString(0, "%" + id + "%");
+       // return  (List<Rooms>) qry.getResultList();
+    }
+
+
 }
 

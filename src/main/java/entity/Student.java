@@ -3,6 +3,7 @@ package entity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 import org.hibernate.annotations.ColumnDefault;
 import util.Paid;
 
@@ -36,10 +37,12 @@ public class Student {
 
     @Enumerated(EnumType.STRING)
     @Column(name = "paid")
-    @ColumnDefault("NOT_PAID")
+
     private Paid paid;
+
     @OneToOne(mappedBy = "student",targetEntity = Rooms.class)
-    @PrimaryKeyJoinColumn
+    @JoinColumn(name = "roomId")
+    @ToString.Exclude
     private Rooms rooms;
 
 

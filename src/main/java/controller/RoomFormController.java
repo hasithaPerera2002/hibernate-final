@@ -11,17 +11,24 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 import javafx.util.StringConverter;
 import service.RoomsService;
 import service.ServiceFactory;
 import service.ServiceTypes;
+import util.Navigation;
 import util.Regex;
 import util.TextFields;
 
+import java.io.IOException;
 import java.util.Optional;
 
 public class RoomFormController {
@@ -113,8 +120,9 @@ public class RoomFormController {
     }
 
     private void setTable() {
-        ObservableList<RoomsDTO> allRooms;
-        allRooms = roomsService.getAllRooms();
+        tblStudent.refresh();
+        tblDTOS.clear();
+        ObservableList<RoomsDTO> allRooms= roomsService.getAllRooms();
         for (RoomsDTO a : allRooms
         ) {
             Button button = new Button();
@@ -145,6 +153,7 @@ public class RoomFormController {
                 if (0 < roomsService.add(new RoomsDTO(txtId.getText(), selectedItem.getRoomTypeId(),
                         selectedItem.getRoomType(), selectedItem.getKeyMoney()))) {
                     new Alert(Alert.AlertType.CONFIRMATION, "ROOM ADDED SUCCESSFULLY").show();
+                    setTable();
                     clear();
                     btnSave.setDisable(true);
 
@@ -171,5 +180,21 @@ public class RoomFormController {
 
             }
         });
+    }
+
+    public void txtSearchIdOnAction(KeyEvent keyEvent) {
+        System.out.println(txtSearchId.getText());
+        ObservableList<RoomsDTO> searched = roomsService.getSearched(txtSearchId.getText());
+        System.out.println(searched);
+    }
+
+    public void btnRoomEditOnAction(ActionEvent actionEvent) throws IOException {
+        Stage stage = new Stage();
+        stage.setScene(new Scene(FXMLLoader.load(getClass().getResource("/view/RoomEditForm.fxml"))));
+        Stage window = (Stage) dashboardContext2.getScene().getWindow();
+        stage.initOwner(window);
+        stage.centerOnScreen();
+        stage.initModality(Modality.APPLICATION_MODAL);
+        stage.show();
     }
 }

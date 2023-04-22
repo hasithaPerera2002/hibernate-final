@@ -42,13 +42,13 @@
             <TableColumn fx:id="colOption" prefWidth="261.0" text="OPTIONS" />
         </columns>
       </TableView>
-      <JFXTextField fx:id="txtSearchId" labelFloat="true" layoutX="822.0" layoutY="345.0" prefHeight="31.0" prefWidth="266.0" promptText="ID">
+      <Separator layoutX="43.0" layoutY="70.0" prefHeight="1.0" prefWidth="285.0" />
+      <JFXButton fx:id="btnNew" buttonType="RAISED" layoutX="519.0" layoutY="173.0" onAction="#btnNewOnAction" prefHeight="43.0" prefWidth="266.0" ripplerFill="#42dd5e" style="-fx-background-color: #CFF5E7;" text="NEW">
          <font>
             <Font name="System Bold" size="15.0" />
          </font>
-      </JFXTextField>
-      <Separator layoutX="43.0" layoutY="70.0" prefHeight="1.0" prefWidth="285.0" />
-      <JFXButton fx:id="btnNew" buttonType="RAISED" layoutX="519.0" layoutY="173.0" onAction="#btnNewOnAction" prefHeight="43.0" prefWidth="266.0" ripplerFill="#42dd5e" style="-fx-background-color: #CFF5E7;" text="NEW">
+      </JFXButton>
+      <JFXButton fx:id="btnRoomEdit" buttonType="RAISED" layoutX="824.0" layoutY="306.0" onAction="#btnRoomEditOnAction" prefHeight="57.0" prefWidth="251.0" stylesheets="@../assets/stylesheets/style.css" text="EDIT ROOMS">
          <font>
             <Font name="System Bold" size="15.0" />
          </font>

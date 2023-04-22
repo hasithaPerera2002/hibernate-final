@@ -16,4 +16,8 @@ public interface RoomsRepo extends SuperRepo<Rooms,String>{
     List<Rooms> getAllWithoutStudents(Session session);
 
     int getTotalCount(Session session);
+
+    List <Rooms> getSearchList(Session session,String id);
+
+
 }

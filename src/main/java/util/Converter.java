@@ -10,6 +10,8 @@ import entity.User;
 
 import java.sql.Date;
 import java.time.LocalDate;
+import java.util.HashMap;
+import java.util.List;
 
 public class Converter {
 
@@ -44,5 +46,13 @@ public class Converter {
 
     public StudentDTO toStudentDTO(Student student) {
         return new StudentDTO(student.getId(), student.getFname(), student.getSname(), student.getAddress(), student.getContact(), student.getNic(), student.getFromDate().toLocalDate(),student.getToDate().toLocalDate(),student.getPaid(), Converter.getConverter().toRoomDTO(student.getRooms()));
+    }
+
+    public HashMap<String,Double> toHashMap(List<Object[]> income) {
+        HashMap<String,Double> list = new HashMap<>();
+        income.forEach(e->{
+            list.put(e[0].toString(),Double.parseDouble(e[1].toString()));
+        });
+        return list;
     }
 }

@@ -18,4 +18,6 @@ public interface RoomsService extends SuperService<RoomsDTO,String> {
     boolean update(RoomsStuDTO roomsStuDTO);
 
     int getTotalCount();
+
+    ObservableList<RoomsDTO> getSearched(String id);
 }

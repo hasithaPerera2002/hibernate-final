@@ -181,6 +181,26 @@ public class RoomsServiceImpl implements RoomsService {
         }
     }
 
+    @Override
+    public ObservableList<RoomsDTO> getSearched(String id) {
+        Session session=FactoryConfiguration.getInstance().getSession();
+        ObservableList<RoomsDTO>roomsDTOS=FXCollections.observableArrayList();
+        try{
+            List<Rooms> searchList = roomsRepo.getSearchList(session, id);
+            for (Rooms r:searchList
+                 ) {
+                System.out.println(r.getId());
+               roomsDTOS.add( Converter.getConverter().toRoomDTO(r));
+            }
+            return roomsDTOS;
+        }catch (NoResultException | NullPointerException e){
+            e.printStackTrace();
+            return roomsDTOS;
+        }finally {
+            session.close();
+        }
+    }
+
     private String lastId() {
         Session session= FactoryConfiguration.getInstance().getSession();
         try{

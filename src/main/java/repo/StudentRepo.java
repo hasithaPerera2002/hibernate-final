@@ -17,4 +17,6 @@ public interface  StudentRepo extends SuperRepo<Student,String> {
     int getTotalCount(Session session);
 
     int getUnPaidCount(Session session);
+
+    List getIncome(Session session);
 }

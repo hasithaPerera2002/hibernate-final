@@ -20,7 +20,7 @@ public class Rooms {
     @JoinColumn(name = "roomType")
     private RoomTypes roomType;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.ALL )
     @JoinColumn(name = "student")
     private Student student;
 }

@@ -15,7 +15,7 @@ public class AppInitializer extends Application {
     @Override
     public void start(Stage primaryStage) throws IOException {
         FactoryConfiguration.getInstance();
-        Scene scene = new Scene(FXMLLoader.load(getClass().getResource("/view/DashBoardForm.fxml")));
+        Scene scene = new Scene(FXMLLoader.load(getClass().getResource("/view/LoginForm.fxml")));
         primaryStage.setScene(scene);
         primaryStage.centerOnScreen();
         primaryStage.show();

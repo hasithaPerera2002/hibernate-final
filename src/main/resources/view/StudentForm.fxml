@@ -66,11 +66,6 @@
             <TableColumn fx:id="colOption" prefWidth="92.0" text="OPTIONS" />
         </columns>
       </TableView>
-      <JFXTextField fx:id="txtSearchId" labelFloat="true" layoutX="822.0" layoutY="363.0" prefHeight="31.0" prefWidth="266.0" promptText="ID">
-         <font>
-            <Font name="System Bold" size="15.0" />
-         </font>
-      </JFXTextField>
       <Separator layoutX="43.0" layoutY="70.0" prefHeight="1.0" prefWidth="285.0" />
       <JFXButton fx:id="btnKeyMoney" buttonType="RAISED" layoutX="932.0" layoutY="21.0" onAction="#btnKeyMoneyOnAction" prefHeight="44.0" prefWidth="140.0" ripplerFill="#42dd5e" style="-fx-background-color: #59C1BD;" text="PAY KEYMONEY">
          <font>

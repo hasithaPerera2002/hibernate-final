@@ -75,3 +75,6 @@
     -fx-background-insets: 0, 0 0 1 0;
     -fx-padding: 0.0em;
 }
+#btnRoomEdit{
+    -fx-background-color: #59C1BD;
+}

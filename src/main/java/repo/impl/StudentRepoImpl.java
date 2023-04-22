@@ -58,4 +58,17 @@ public class StudentRepoImpl implements StudentRepo {
        return singleResult.intValue();
 
     }
+
+    @Override
+    public List getIncome(Session session) {
+
+            Query query = session.createQuery("select month(sr.fromDate) as mon, " +
+                    "sum(sr .rooms.roomType.keyMoney) as price from Student sr " +
+                    " where year(sr.fromDate) = 2023 group by month(sr.fromDate) ",Object[].class);
+            List<Object[]> list = query.list();
+        System.out.println(list);
+            return list;
+        }
+
+
 }

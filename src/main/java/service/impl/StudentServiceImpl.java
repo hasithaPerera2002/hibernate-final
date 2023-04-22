@@ -1,7 +1,10 @@
 package service.impl;
 
+import DTO.RoomsDTO;
 import DTO.StudentDTO;
 import DTO.tableDTO.StudentTblDTO;
+import entity.RoomTypes;
+import entity.Rooms;
 import entity.Student;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -10,17 +13,21 @@ import org.hibernate.Transaction;
 import org.hibernate.exception.SQLGrammarException;
 import repo.RepoFactory;
 import repo.RepoTypes;
+import repo.RoomsRepo;
 import repo.StudentRepo;
 import service.StudentService;
 import util.Converter;
 import util.FactoryConfiguration;
 import util.Paid;
+import util.RoomType;
 
 import javax.persistence.NoResultException;
+import java.util.HashMap;
 import java.util.List;
 
 public class StudentServiceImpl implements StudentService {
     private StudentRepo studentRepo = RepoFactory.getInstance().getRepo(RepoTypes.STUDENT_REPO);
+    private RoomsRepo roomsRepo=RepoFactory.getInstance().getRepo(RepoTypes.ROOMS_REPO);
 
     @Override
     public int add(StudentDTO obj) {
@@ -41,11 +48,14 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
-    public int delete(StudentDTO obj) {
+    public int delete(StudentDTO student) {
         Session session = FactoryConfiguration.getInstance().getSession();
         Transaction transaction = session.beginTransaction();
         try {
-            studentRepo.delete(Converter.getConverter().toStudent(obj), session);
+            RoomsDTO obj = student.getRoomsDTO();
+            roomsRepo.update(new Rooms(obj.getId(),new RoomTypes(obj.getRoomTypeID(),obj.getRoomType(), obj.getKeymoney(), null),null),session);
+            studentRepo.delete(Converter.getConverter().toStudent(student), session);
+            System.out.println(obj.getId()+"=========");
             transaction.commit();
             return 1;
         } catch (Exception e) {
@@ -81,6 +91,7 @@ public class StudentServiceImpl implements StudentService {
         try {
             List<Student> all = studentRepo.getAll(session);
             for (Student student : all) {
+                System.out.println(student);
                 observableList.add(Converter.getConverter().toStudentDTO(student));
             }
             return observableList;
@@ -117,6 +128,21 @@ public class StudentServiceImpl implements StudentService {
         }
     }
 
+    @Override
+    public HashMap<String, Double> getMonthlyIncome() {
+        Session session=FactoryConfiguration.getInstance().getSession();
+        try{
+            List income=studentRepo.getIncome(session);
+            return Converter.getConverter().toHashMap(income);
+        }catch (Exception e){
+
+            e.printStackTrace();
+            return null;
+        }finally {
+            session.close();
+        }
+    }
+
 
     @Override
     public boolean update(String id, Paid paid) {
@@ -124,7 +150,6 @@ public class StudentServiceImpl implements StudentService {
         Transaction transaction= session.beginTransaction();
         try{
             studentRepo.update(id,paid,session);
-            System.out.println("updateeeeeeeeeeeeeeeeeeeeeeeeeeee");
             transaction.commit();
             return true;
         }catch (Exception e){

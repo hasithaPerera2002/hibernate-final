@@ -3,21 +3,17 @@ package controller;
 import DTO.RoomsDTO;
 import DTO.RoomsStuDTO;
 import DTO.StudentDTO;
+import DTO.tableDTO.StudentAllTblDTO;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
-import com.jfoenix.controls.JFXDatePicker;
 import com.jfoenix.controls.JFXTextField;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
-import javafx.stage.Modality;
-import javafx.stage.Stage;
 import javafx.util.StringConverter;
 import service.RoomsService;
 import service.ServiceFactory;
@@ -28,18 +24,20 @@ import util.*;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.Period;
+import java.util.Optional;
 
 public class StudentFormController {
 
 
     public JFXButton btnKeyMoney;
     public AnchorPane dashboardContext2;
-    public TableColumn colRoomId;
+    public TableColumn<StudentAllTblDTO, String> colRoomId;
     public JFXComboBox<RoomsDTO> cmbRoom;
     public DatePicker datePickerFrom;
     public DatePicker datePickerTo;
     private StudentService studentService = ServiceFactory.getInstance().getService(ServiceTypes.STUDENT_SERVICE);
     private RoomsService roomsService = ServiceFactory.getInstance().getService(ServiceTypes.ROOM_SERVICE);
+    private ObservableList<StudentAllTblDTO> tblDTOS = FXCollections.observableArrayList();
 //    private  SSer
 
     @FXML
@@ -65,31 +63,32 @@ public class StudentFormController {
     private JFXButton btnSave;
 
     @FXML
-    private TableView<?> tblStudent;
+    private TableView<StudentAllTblDTO> tblStudent;
 
     @FXML
-    private TableColumn<?, ?> colId;
+    private TableColumn<StudentAllTblDTO, String> colId;
 
     @FXML
-    private TableColumn<?, ?> colFname;
+    private TableColumn<StudentAllTblDTO, String> colFname;
 
     @FXML
-    private TableColumn<?, ?> colSname;
+    private TableColumn<StudentAllTblDTO, String> colSname;
 
     @FXML
-    private TableColumn<?, ?> colConatctNo;
+    private TableColumn<StudentAllTblDTO, String> colConatctNo;
 
     @FXML
-    private TableColumn<?, ?> colNIC;
+    private TableColumn<StudentAllTblDTO, String> colNIC;
 
     @FXML
-    private TableColumn<?, ?> colAddress;
+    private TableColumn<StudentAllTblDTO, String> colAddress;
 
     @FXML
-    private TableColumn<?, ?> colOption;
+    private TableColumn<StudentAllTblDTO, Button> colOption;
 
     @FXML
     private JFXTextField txtSearchId;
+
 
     @FXML
     void btnSaveOnAction(ActionEvent event) {
@@ -102,7 +101,6 @@ public class StudentFormController {
                 LocalDate fromValue = datePickerFrom.getValue();
                 Period between = Period.between(fromValue, toValue);
                 if ((Math.abs(between.getMonths()) >= 1)) {
-                    System.out.println("===================================================");
                     if (cmbRoom.getSelectionModel().getSelectedItem() != null) {
                         StudentDTO studentDTO = new StudentDTO(txtId.getText(), txtFname.getText(),
                                 txtSname.getText(), txtAddress.getText(), txtContactNo.getText(), txtNIC.getText(),
@@ -113,17 +111,15 @@ public class StudentFormController {
                         if (0 < studentService.add(studentDTO) && roomsService.update(
                                 new RoomsStuDTO(selectedItem, studentDTO))) {
                             new Alert(Alert.AlertType.CONFIRMATION, "STUDENT ADDED SUCCESSFULLY").show();
-
+setTable();
                         } else {
                             new Alert(Alert.AlertType.CONFIRMATION, "STUDENT NOT ADDED").show();
                         }
                     } else {
                         new Alert(Alert.AlertType.ERROR, "SELECT A ROOM ").show();
-
-
                     }
                     clear();
-                }else {
+                } else {
                     new Alert(Alert.AlertType.ERROR, "DATE DURATION HAVE TO BETWEEN 1 MONTH ").show();
                 }
 
@@ -149,10 +145,17 @@ public class StudentFormController {
     }
 
     public void initialize() {
+        colAddress.setCellValueFactory(new PropertyValueFactory<>("address"));
+        colConatctNo.setCellValueFactory(new PropertyValueFactory<>("contactNo"));
+        colFname.setCellValueFactory(new PropertyValueFactory<>("firstName"));
+        colSname.setCellValueFactory(new PropertyValueFactory<>("secondName"));
+        colOption.setCellValueFactory(new PropertyValueFactory<>("btn"));
+        colNIC.setCellValueFactory(new PropertyValueFactory<>("nic"));
+        colId.setCellValueFactory(new PropertyValueFactory<>("id"));
+        colRoomId.setCellValueFactory(new PropertyValueFactory<>("roomId"));
         setNewId();
         txtId.setDisable(true);
         cmbRoom.setItems(roomsService.getAllRoomsWithoutStudents());
-
         cmbRoom.setConverter(new StringConverter<RoomsDTO>() {
             @Override
             public String toString(RoomsDTO roomsDTO) {
@@ -164,6 +167,32 @@ public class StudentFormController {
                 return null;
             }
         });
+      setTable();
+    }
+
+    private void setTable() {
+        ObservableList<StudentDTO> all = studentService.getAll();
+        tblDTOS.clear();
+        all.stream().forEach(studentDTO -> {
+                    Button button = new Button();
+                    button.setStyle("-fx-background-color: rgb(230, 57, 70);");
+                    button.setText("delete");
+                    button.setOnAction(actionEvent -> {
+                        Optional<ButtonType> type = new Alert(Alert.AlertType.INFORMATION, "DO YOU WANT TO DELETE", ButtonType.YES, ButtonType.NO).showAndWait();
+                        if (type.get() == ButtonType.YES) {
+                            if (0 < studentService.delete(studentDTO))
+                                new Alert(Alert.AlertType.CONFIRMATION, "Student deleted successfully").show();
+                            setTable();
+                            clear();
+                        } else {
+                            new Alert(Alert.AlertType.ERROR, "Error while deleting").show();
+                        }
+                    });
+                    tblDTOS.add(new StudentAllTblDTO(studentDTO.getId(), studentDTO.getFname(), studentDTO.getSname(), studentDTO.getContact(),
+                            studentDTO.getNic(), studentDTO.getAddress(), studentDTO.getRoomsDTO().getId(), button));
+                }
+        );
+        tblStudent.setItems(tblDTOS);
     }
 
     private void setNewId() {
@@ -171,6 +200,6 @@ public class StudentFormController {
     }
 
     public void btnKeyMoneyOnAction(ActionEvent actionEvent) throws IOException {
-     Navigation.getInstance().navigation(Routs.PAYMENT_FORM,dashboardContext2);
+        Navigation.getInstance().navigation(Routs.PAYMENT_FORM, dashboardContext2);
     }
 }

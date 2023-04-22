@@ -30,6 +30,7 @@ public void navigation(Routs routs, AnchorPane anchorPane) throws IOException {
             case LOGIN_FORM:setNewPane("LoginForm");break;
             case KEYMONEY_FORM:setNewPane("PaymentKeyMoneyForm");break;
             case PAYMENT_FORM:setUI("PaymentForm");break;
+            case ROOM_EDIT_FORM:setNewPane("RoomEdit");break;
         }
 }
 
